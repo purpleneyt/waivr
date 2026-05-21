@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import './styles/global.css'
 import SplashScreen from './pages/SplashScreen'
 import Home from './pages/Home'
 import SendMoney from './pages/SendMoney'
