@@ -199,7 +199,7 @@ export const calculateFees = async (transferData) => {
       
       // Adjust for transfer route
       if (transferRoute === 'pesonet') {
-        baseFee = 20
+        baseFee = 0  // PESONet has no fee
       }
       
       const feeResult = {

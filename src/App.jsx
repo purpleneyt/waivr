@@ -12,6 +12,9 @@ import TransferSuccess from './pages/TransferSuccess'
 import TransactionHistory from './pages/TransactionHistory'
 import SponsoredFAQ from './pages/SponsoredFAQ'
 import HighRiskSession from './pages/HighRiskSession'
+import Inbox from './pages/Inbox'
+import QR from './pages/QR'
+import Profile from './pages/Profile'
 
 function App() {
   return (
@@ -29,6 +32,9 @@ function App() {
         <Route path="/transaction-history" element={<TransactionHistory />} />
         <Route path="/sponsored-faq" element={<SponsoredFAQ />} />
         <Route path="/high-risk-session" element={<HighRiskSession />} />
+        <Route path="/inbox" element={<Inbox />} />
+        <Route path="/qr" element={<QR />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   )

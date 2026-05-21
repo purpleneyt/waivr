@@ -35,7 +35,7 @@ const styles = {
   },
   label: {
     fontSize: '11px',
-    fontWeight: '700',
+    fontWeight: '400',
     letterSpacing: '0.5px',
     color: 'rgba(255, 255, 255, 0.5)',
     fontFamily: 'var(--font-text)',

@@ -21,7 +21,7 @@ export default function SplashScreen() {
 
         {/* Tagline */}
         <div style={styles.tagline}>
-          Watch Me Waive
+          Watch. Me. Waive.
         </div>
 
         {/* Loading indicator */}
@@ -46,8 +46,8 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F8F8F8',
-    color: '#010825',
+    backgroundColor: 'var(--color-bg-primary)',
+    color: 'var(--color-text-primary)',
     textAlign: 'center',
     padding: '20px',
   },
@@ -58,13 +58,14 @@ const styles = {
     gap: '40px',
   },
   logo: {
-    width: '180px',
+    width: '200px',
     objectFit: 'contain',
+    filter: 'brightness(0) saturate(100%) invert(18%) sepia(84%) saturate(1534%) hue-rotate(265deg)',
   },
   tagline: {
     fontSize: '18px',
     fontFamily: 'var(--font-text)',
-    color: '#2E0585',
+    color: 'var(--color-deep)',
     fontWeight: '500',
   },
   loader: {
@@ -77,15 +78,16 @@ const styles = {
     width: '12px',
     height: '12px',
     borderRadius: '50%',
-    backgroundColor: '#7C2FEF',
+    backgroundColor: 'var(--color-primary)',
     animation: 'pulse 1.5s ease-in-out infinite',
   },
   footer: {
     position: 'absolute',
     bottom: '30px',
     fontSize: '12px',
-    color: '#7C2FEF',
+    color: 'var(--color-primary)',
     fontFamily: 'var(--font-text)',
+    fontStyle: 'italic',
   },
 }
 

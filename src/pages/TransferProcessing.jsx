@@ -1,18 +1,67 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 
 export default function TransferProcessing() {
   const navigate = useNavigate()
   const location = useLocation()
   const transferData = location.state || {}
+  const [steps, setSteps] = useState({
+    validation: { status: 'in-progress', time: null },
+    adSelection: { status: 'pending', time: null },
+    adVerification: { status: 'pending', time: null },
+    feeVerification: { status: 'pending', time: null },
+    execution: { status: 'pending', time: null },
+  })
 
   useEffect(() => {
-    // Simulate processing and redirect to success after 3 seconds
+    // Simulate processing steps
+    const step1 = setTimeout(() => {
+      setSteps((prev) => ({
+        ...prev,
+        validation: { status: 'completed', time: new Date() },
+        adSelection: { status: 'in-progress', time: null },
+      }))
+    }, 600)
+
+    const step2 = setTimeout(() => {
+      setSteps((prev) => ({
+        ...prev,
+        adSelection: { status: 'completed', time: new Date() },
+        adVerification: { status: 'in-progress', time: null },
+      }))
+    }, 1200)
+
+    const step3 = setTimeout(() => {
+      setSteps((prev) => ({
+        ...prev,
+        adVerification: { status: 'completed', time: new Date() },
+        feeVerification: { status: 'in-progress', time: null },
+      }))
+    }, 1800)
+
+    const step4 = setTimeout(() => {
+      setSteps((prev) => ({
+        ...prev,
+        feeVerification: { status: 'completed', time: new Date() },
+        execution: { status: 'in-progress', time: null },
+      }))
+    }, 2300)
+
     const timer = setTimeout(() => {
+      setSteps((prev) => ({
+        ...prev,
+        execution: { status: 'completed', time: new Date() },
+      }))
       navigate('/transfer-success', { state: transferData })
     }, 3000)
 
-    return () => clearTimeout(timer)
+    return () => {
+      clearTimeout(step1)
+      clearTimeout(step2)
+      clearTimeout(step3)
+      clearTimeout(step4)
+      clearTimeout(timer)
+    }
   }, [navigate, transferData])
 
   return (
@@ -25,7 +74,49 @@ export default function TransferProcessing() {
         </div>
 
         <h1 style={styles.title}>Processing Transfer</h1>
-        <p style={styles.subtitle}>Your transfer is being processed</p>
+
+        <div style={styles.stepsSection}>
+          <div style={styles.step}>
+            <div style={{...styles.stepIcon, ...getStepStyle(steps.validation.status)}}>
+              {steps.validation.status === 'completed' ? '✓' : ''}
+            </div>
+            <div style={styles.stepLabel}>Validating Account</div>
+            <div style={styles.stepSubtext}>Risk Score: {transferData.riskScore || 0}</div>
+          </div>
+
+          {!['instant-pay'].includes(transferData.transferRoute) && (
+            <>
+              <div style={styles.step}>
+                <div style={{...styles.stepIcon, ...getStepStyle(steps.adSelection.status)}}>
+                  {steps.adSelection.status === 'completed' ? '✓' : ''}
+                </div>
+                <div style={styles.stepLabel}>Selecting Ad</div>
+              </div>
+
+              <div style={styles.step}>
+                <div style={{...styles.stepIcon, ...getStepStyle(steps.adVerification.status)}}>
+                  {steps.adVerification.status === 'completed' ? '✓' : ''}
+                </div>
+                <div style={styles.stepLabel}>Verifying Ad</div>
+              </div>
+
+              <div style={styles.step}>
+                <div style={{...styles.stepIcon, ...getStepStyle(steps.feeVerification.status)}}>
+                  {steps.feeVerification.status === 'completed' ? '✓' : ''}
+                </div>
+                <div style={styles.stepLabel}>Approving Subsidy</div>
+                <div style={styles.stepSubtext}>₱{transferData.transferFee || 0} fee waived</div>
+              </div>
+            </>
+          )}
+
+          <div style={styles.step}>
+            <div style={{...styles.stepIcon, ...getStepStyle(steps.execution.status)}}>
+              {steps.execution.status === 'completed' ? '✓' : ''}
+            </div>
+            <div style={styles.stepLabel}>Executing Transfer</div>
+          </div>
+        </div>
 
         <div style={styles.details}>
           <div style={styles.detailRow}>
@@ -33,13 +124,25 @@ export default function TransferProcessing() {
             <span style={styles.detailValue}>₱{transferData.amount || 0}.00</span>
           </div>
           <div style={styles.detailRow}>
-            <span>Fee Status</span>
-            <span style={{ ...styles.detailValue, color: 'var(--color-primary)' }}>{transferData.paymentMode === 'sponsored' ? 'FREE' : `₱${transferData.transferFee || 0}`}</span>
+            <span>Fee</span>
+            <span style={{ ...styles.detailValue, color: transferData.paymentMode === 'sponsored' ? 'var(--color-primary)' : 'var(--color-text-secondary)' }}>
+              {transferData.paymentMode === 'sponsored' ? 'FREE ✓' : `₱${transferData.transferFee || 0}`}
+            </span>
           </div>
         </div>
       </div>
     </div>
   )
+}
+
+const getStepStyle = (status) => {
+  if (status === 'completed') {
+    return { backgroundColor: 'rgba(76, 175, 80, 0.2)', borderColor: '#4CAF50', color: '#4CAF50' }
+  }
+  if (status === 'in-progress') {
+    return { backgroundColor: 'rgba(124, 47, 239, 0.2)', borderColor: 'var(--color-primary)', color: 'var(--color-primary)' }
+  }
+  return { backgroundColor: 'transparent', borderColor: 'var(--color-border)', color: 'var(--color-text-tertiary)' }
 }
 
 const styles = {
@@ -113,6 +216,45 @@ const styles = {
   detailValue: {
     fontWeight: '600',
     fontFamily: 'var(--font-numbers)',
+  },
+  stepsSection: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '12px',
+  },
+  step: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    padding: '12px',
+    backgroundColor: 'var(--color-bg-secondary)',
+    borderRadius: '8px',
+    border: '1px solid var(--color-border)',
+  },
+  stepIcon: {
+    width: '32px',
+    height: '32px',
+    borderRadius: '50%',
+    border: '2px solid var(--color-border)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '16px',
+    fontWeight: '700',
+    flexShrink: 0,
+  },
+  stepLabel: {
+    fontSize: '13px',
+    fontWeight: '600',
+    fontFamily: 'var(--font-text)',
+    color: 'var(--color-text-primary)',
+  },
+  stepSubtext: {
+    marginLeft: 'auto',
+    fontSize: '12px',
+    fontFamily: 'var(--font-numbers)',
+    color: 'var(--color-text-secondary)',
   },
 }
 

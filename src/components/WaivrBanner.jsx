@@ -7,7 +7,7 @@ export default function WaivrBanner() {
   return (
     <div
       style={styles.banner}
-      onClick={() => navigate('/ad-loading')}
+      onClick={() => navigate('/send-money', { state: { paymentMode: 'sponsored' } })}
     >
       <div style={styles.iconSection}>
         <Gift size={24} color="white" strokeWidth={2} />

@@ -1,11 +1,19 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { X } from 'lucide-react'
+import { verifyAdCompletion } from '../services/mockApi'
 
 export default function AdPlayback() {
   const navigate = useNavigate()
   const location = useLocation()
   const [timeLeft, setTimeLeft] = useState(15)
+  const [verificationSignals, setVerificationSignals] = useState({
+    foregroundActive: true,
+    watchTime: 0,
+    interactionEvents: 0,
+    riskScore: 0,
+    suspicious: false,
+  })
   const transferData = location.state || {}
 
   useEffect(() => {
@@ -13,15 +21,32 @@ export default function AdPlayback() {
       setTimeLeft((prev) => {
         if (prev <= 1) {
           clearInterval(interval)
-          navigate('/ad-verified', { state: transferData })
+          navigate('/ad-verified', { state: { ...transferData, verificationSignals } })
           return 0
         }
+        // Update watch time in signals
+        setVerificationSignals((prev) => ({
+          ...prev,
+          watchTime: 15 - prev + 1,
+        }))
         return prev - 1
       })
     }, 1000)
 
     return () => clearInterval(interval)
   }, [navigate, transferData])
+
+  // Simulate real-time verification signal updates
+  useEffect(() => {
+    const signalInterval = setInterval(() => {
+      setVerificationSignals((prev) => ({
+        ...prev,
+        interactionEvents: Math.min(prev.interactionEvents + (Math.random() > 0.7 ? 1 : 0), 5),
+        riskScore: Math.max(0, prev.riskScore + (Math.random() > 0.8 ? -2 : 1)),
+      }))
+    }, 400)
+    return () => clearInterval(signalInterval)
+  }, [])
 
   return (
     <div style={styles.container}>
@@ -66,15 +91,17 @@ export default function AdPlayback() {
           </div>
           <div style={styles.signalItem}>
             <div style={styles.signalLabel}>Watch Time</div>
-            <div style={styles.signalValue}>0s</div>
+            <div style={styles.signalValue}>{verificationSignals.watchTime}s</div>
+          </div>
+          <div style={styles.signalItem}>
+            <div style={styles.signalLabel}>Interactions</div>
+            <div style={styles.signalValue}>{verificationSignals.interactionEvents}</div>
           </div>
           <div style={styles.signalItem}>
             <div style={styles.signalLabel}>Risk Score</div>
-            <div style={{...styles.signalBadge, color: '#4CAF50'}}>Low</div>
-          </div>
-          <div style={styles.signalItem}>
-            <div style={styles.signalLabel}>Bot Check</div>
-            <div style={{...styles.signalBadge, color: '#4CAF50'}}>Clear</div>
+            <div style={{...styles.signalBadge, color: verificationSignals.riskScore > 70 ? '#FF6B6B' : '#4CAF50'}}>
+              {verificationSignals.riskScore > 70 ? 'Elevated' : 'Low'}
+            </div>
           </div>
         </div>
       </div>

@@ -24,13 +24,59 @@ export default function TransferSuccess() {
             </div>
             <div style={styles.detailItem}>
               <span style={styles.detailLabel}>Fee</span>
-              <span style={{ ...styles.detailValue, color: 'var(--color-primary)' }}>
+              <span style={{ ...styles.detailValue, color: transferData.paymentMode === 'sponsored' ? 'var(--color-primary)' : 'var(--color-text-secondary)' }}>
                 ₱{transferData.transferFee || 0}.00 {transferData.paymentMode === 'sponsored' ? '(Waivr)' : ''}
               </span>
             </div>
             <div style={styles.detailItem}>
               <span style={styles.detailLabel}>Reference</span>
               <span style={styles.referenceCode}>TXN{Date.now().toString().slice(-9)}</span>
+            </div>
+          </div>
+
+          {/* Audit Trail */}
+          <div style={styles.auditTrail}>
+            <h3 style={styles.auditTitle}>TRANSACTION AUDIT TRAIL</h3>
+            <div style={styles.auditItems}>
+              <div style={styles.auditItem}>
+                <span style={styles.auditCheckmark}>✓</span>
+                <div style={styles.auditInfo}>
+                  <div style={styles.auditAction}>Account Validated</div>
+                  <div style={styles.auditTime}>Risk Score: {transferData.riskScore || 0}</div>
+                </div>
+              </div>
+              {transferData.paymentMode === 'sponsored' && (
+                <>
+                  <div style={styles.auditItem}>
+                    <span style={styles.auditCheckmark}>✓</span>
+                    <div style={styles.auditInfo}>
+                      <div style={styles.auditAction}>Ad Selected & Served</div>
+                      <div style={styles.auditTime}>GoTyme Bank - 15s</div>
+                    </div>
+                  </div>
+                  <div style={styles.auditItem}>
+                    <span style={styles.auditCheckmark}>✓</span>
+                    <div style={styles.auditInfo}>
+                      <div style={styles.auditAction}>Ad Verification Complete</div>
+                      <div style={styles.auditTime}>All signals verified</div>
+                    </div>
+                  </div>
+                  <div style={styles.auditItem}>
+                    <span style={styles.auditCheckmark}>✓</span>
+                    <div style={styles.auditInfo}>
+                      <div style={styles.auditAction}>Subsidy Approved</div>
+                      <div style={styles.auditTime}>₱{transferData.transferFee || 0}.00 waived</div>
+                    </div>
+                  </div>
+                </>
+              )}
+              <div style={styles.auditItem}>
+                <span style={styles.auditCheckmark}>✓</span>
+                <div style={styles.auditInfo}>
+                  <div style={styles.auditAction}>Transfer Executed</div>
+                  <div style={styles.auditTime}>{new Date().toLocaleTimeString()}</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -121,6 +167,63 @@ const styles = {
   },
   referenceCode: {
     fontSize: '12px',
+    fontFamily: 'var(--font-numbers)',
+    color: 'var(--color-text-tertiary)',
+  },
+  auditTrail: {
+    marginTop: '24px',
+    backgroundColor: 'var(--color-bg-secondary)',
+    borderRadius: '12px',
+    padding: '16px',
+    border: '1px solid var(--color-border)',
+  },
+  auditTitle: {
+    fontSize: '11px',
+    fontWeight: '700',
+    letterSpacing: '0.5px',
+    color: 'var(--color-text-tertiary)',
+    fontFamily: 'var(--font-text)',
+    textTransform: 'uppercase',
+    margin: '0 0 16px 0',
+  },
+  auditItems: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '12px',
+  },
+  auditItem: {
+    display: 'flex',
+    gap: '12px',
+    padding: '10px 0',
+    borderBottom: '1px solid var(--color-border)',
+  },
+  auditCheckmark: {
+    width: '24px',
+    height: '24px',
+    borderRadius: '50%',
+    backgroundColor: 'rgba(76, 175, 80, 0.2)',
+    color: '#4CAF50',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '12px',
+    fontWeight: '700',
+    flexShrink: 0,
+  },
+  auditInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '4px',
+    flex: 1,
+  },
+  auditAction: {
+    fontSize: '12px',
+    fontWeight: '600',
+    fontFamily: 'var(--font-text)',
+    color: 'var(--color-text-primary)',
+  },
+  auditTime: {
+    fontSize: '11px',
     fontFamily: 'var(--font-numbers)',
     color: 'var(--color-text-tertiary)',
   },

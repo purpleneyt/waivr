@@ -1,20 +1,28 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { ArrowRight, ChevronRight, AlertCircle } from 'lucide-react'
 import { validateTransfer, calculateFees, getUserData } from '../services/mockApi'
 import BottomNav from '../components/BottomNav'
 
 export default function SendMoney() {
   const navigate = useNavigate()
+  const location = useLocation()
   const [recipientName, setRecipientName] = useState('')
   const [recipientMobile, setRecipientMobile] = useState('')
   const [amount, setAmount] = useState(0)
   const [transferRoute, setTransferRoute] = useState('instapay')
-  const [paymentMode, setPaymentMode] = useState('sponsored')
+  const [paymentMode, setPaymentMode] = useState('standard')
   const [validationError, setValidationError] = useState('')
   const [isValidating, setIsValidating] = useState(false)
   const [userData, setUserData] = useState(null)
   const [calculatedFee, setCalculatedFee] = useState(0)
+
+  useEffect(() => {
+    // If coming from WaivrBanner with sponsored mode, set it
+    if (location.state?.paymentMode === 'sponsored') {
+      setPaymentMode('sponsored')
+    }
+  }, [location.state])
 
   useEffect(() => {
     // Load user data on component mount
@@ -230,6 +238,13 @@ export default function SendMoney() {
               {paymentMode === 'standard' && <div style={styles.checkmark}>✓</div>}
             </button>
           </div>
+          
+          {/* PESONet info message */}
+          {transferRoute === 'pesonet' && (
+            <div style={styles.pesonetNote}>
+              <span>ℹ️</span> PESONet transfers have no fee
+            </div>
+          )}
         </div>
 
         {/* Summary Section */}
@@ -240,8 +255,8 @@ export default function SendMoney() {
           </div>
           <div style={styles.summaryRow}>
             <span style={styles.summaryLabel}>Transfer Fee</span>
-            <span style={{...styles.summaryValue, color: paymentMode === 'sponsored' ? 'var(--color-primary)' : 'var(--color-text-primary)'}}>
-              {paymentMode === 'sponsored' ? '₱0.00' : `₱${transferFee}.00`}
+            <span style={{...styles.summaryValue, color: (paymentMode === 'sponsored' || transferRoute === 'pesonet') ? 'var(--color-primary)' : 'var(--color-text-primary)'}}>
+              {transferRoute === 'pesonet' ? '₱0.00 (No fee)' : (paymentMode === 'sponsored' ? '₱0.00' : `₱${transferFee}.00`)}
             </span>
           </div>
           <div style={styles.summaryRowTotal}>
@@ -507,6 +522,19 @@ const styles = {
     fontSize: '12px',
     fontWeight: 'bold',
     flexShrink: 0,
+  },
+  pesonetNote: {
+    marginTop: '12px',
+    padding: '10px 12px',
+    backgroundColor: 'rgba(124, 47, 239, 0.1)',
+    borderRadius: '8px',
+    border: '1px solid rgba(124, 47, 239, 0.2)',
+    fontSize: '12px',
+    fontFamily: 'var(--font-text)',
+    color: 'var(--color-primary)',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
   },
   summaryCard: {
     backgroundColor: 'var(--color-bg-secondary)',
