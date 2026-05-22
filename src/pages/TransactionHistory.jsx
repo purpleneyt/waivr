@@ -54,7 +54,7 @@ export default function TransactionHistory() {
 const styles = {
   container: {
     width: '100%',
-    minHeight: '100vh',
+    minHeight: '100%',
     backgroundColor: 'var(--color-bg-primary)',
     color: 'var(--color-text-primary)',
     paddingBottom: '80px',

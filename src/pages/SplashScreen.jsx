@@ -41,7 +41,7 @@ export default function SplashScreen() {
 const styles = {
   container: {
     width: '100%',
-    height: '100vh',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

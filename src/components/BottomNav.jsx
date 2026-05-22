@@ -49,18 +49,17 @@ export default function BottomNav() {
 
 const styles = {
   container: {
-    position: 'fixed',
-    bottom: 0,
-    left: 0,
-    right: 0,
+    position: 'absolute',
+    bottom: '0',
+    left: '0',
+    right: '0',
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: 'var(--color-bg-primary)',
     borderTop: '1px solid var(--color-border)',
     padding: '0',
-    maxWidth: '390px',
-    margin: '0 auto',
+    width: '100%',
     height: '70px',
   },
   item: {

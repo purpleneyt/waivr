@@ -35,7 +35,7 @@
   --color-deep: #2E0585;
 
   /* Light Theme */
-  --color-bg-primary: #FFFFFF;
+  --color-bg-primary: #f8f8f8;
   --color-bg-secondary: #F5F5F5;
   --color-text-primary: #1A1A2E;
   --color-text-secondary: #666666;
@@ -43,7 +43,7 @@
   --color-border: #E8E8E8;
 
   /* Legacy (keeping for compatibility) */
-  --color-bg-dark: #FFFFFF;
+  --color-bg-dark: #f8f8f8;
   --color-bg-light: #1A1A2E;
 
   /* Fonts */

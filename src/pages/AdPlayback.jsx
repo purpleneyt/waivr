@@ -116,7 +116,7 @@ export default function AdPlayback() {
 const styles = {
   container: {
     width: '100%',
-    height: '100vh',
+    height: '100%',
     backgroundColor: 'var(--color-bg-primary)',
     color: 'var(--color-text-primary)',
     display: 'flex',

@@ -287,7 +287,7 @@ export default function SendMoney() {
 const styles = {
   container: {
     width: '100%',
-    minHeight: '100vh',
+    minHeight: '100%',
     backgroundColor: 'var(--color-bg-primary)',
     color: 'var(--color-text-primary)',
     paddingBottom: '80px',
@@ -302,18 +302,21 @@ const styles = {
     alignItems: 'center',
     gap: '12px',
     marginBottom: '24px',
-    marginTop: '12px',
+    marginTop: '0',
   },
   backBtn: {
     backgroundColor: 'transparent',
     border: 'none',
-    fontSize: '28px',
+    fontSize: '24px',
     cursor: 'pointer',
     color: 'var(--color-text-primary)',
     padding: '0',
+    width: '32px',
+    height: '32px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    flexShrink: 0,
   },
   title: {
     fontSize: '20px',
