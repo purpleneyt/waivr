@@ -31,7 +31,9 @@ export default function SponsoredFAQ() {
   return (
     <div style={styles.container}>
       <div style={styles.content}>
-        <h1 style={styles.title}>Sponsored FAQ</h1>
+        <div style={styles.header}>
+          <h1 style={styles.title}>Sponsored FAQ</h1>
+        </div>
 
         <div style={styles.faqList}>
           {faqs.map((faq) => (
@@ -76,11 +78,14 @@ const styles = {
     maxWidth: '390px',
     margin: '0 auto',
   },
+  header: {
+    marginBottom: '20px',
+  },
   title: {
     fontSize: '24px',
     fontWeight: '700',
     fontFamily: 'var(--font-text)',
-    marginTop: '20px',
+    margin: 0,
     marginBottom: '24px',
   },
   faqList: {
@@ -113,12 +118,15 @@ const styles = {
     color: 'var(--color-text-primary)',
   },
   faqAnswer: {
-    padding: '0 16px 16px 16px',
+    padding: '16px',
     fontSize: '13px',
     lineHeight: '1.6',
     color: 'var(--color-text-secondary)',
     fontFamily: 'var(--font-text)',
     borderTop: '1px solid var(--color-border)',
     backgroundColor: 'rgba(124, 47, 239, 0.08)',
+    display: 'flex',
+    alignItems: 'center',
+    minHeight: '60px',
   },
 }

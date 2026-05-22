@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { Bell } from 'lucide-react'
+import { Bell, HelpCircle } from 'lucide-react'
 
 export default function TopBar() {
   const navigate = useNavigate()
@@ -13,12 +13,21 @@ export default function TopBar() {
           <div style={styles.handle}>@juanDC</div>
         </div>
       </div>
-      <button 
-        style={styles.notificationBtn}
-        onClick={() => navigate('/notifications')}
-      >
-        <Bell size={20} color="white" strokeWidth={2} />
-      </button>
+      <div style={styles.rightButtons}>
+        <button 
+          style={styles.helpBtn}
+          onClick={() => navigate('/sponsored-faq')}
+          title="Help & FAQ"
+        >
+          <HelpCircle size={20} color="white" strokeWidth={2} />
+        </button>
+        <button 
+          style={styles.notificationBtn}
+          onClick={() => navigate('/notifications')}
+        >
+          <Bell size={20} color="white" strokeWidth={2} />
+        </button>
+      </div>
     </div>
   )
 }
@@ -61,6 +70,23 @@ const styles = {
     fontSize: '12px',
     color: 'var(--color-text-tertiary)',
     fontFamily: 'var(--font-text)',
+  },
+  rightButtons: {
+    display: 'flex',
+    gap: '8px',
+    alignItems: 'center',
+  },
+  helpBtn: {
+    width: '40px',
+    height: '40px',
+    borderRadius: '10px',
+    backgroundColor: 'rgba(124, 47, 239, 0.8)',
+    border: 'none',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'all 0.3s ease',
   },
   notificationBtn: {
     width: '40px',
