@@ -13,6 +13,7 @@ import TransactionHistory from './pages/TransactionHistory'
 import SponsoredFAQ from './pages/SponsoredFAQ'
 import HighRiskSession from './pages/HighRiskSession'
 import Inbox from './pages/Inbox'
+import Notifications from './pages/Notifications'
 import QR from './pages/QR'
 import Profile from './pages/Profile'
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/sponsored-faq" element={<SponsoredFAQ />} />
         <Route path="/high-risk-session" element={<HighRiskSession />} />
         <Route path="/inbox" element={<Inbox />} />
+        <Route path="/notifications" element={<Notifications />} />
         <Route path="/qr" element={<QR />} />
         <Route path="/profile" element={<Profile />} />
       </Routes>

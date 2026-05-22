@@ -1,16 +1,15 @@
 import BottomNav from '../components/BottomNav'
 
-export default function QR() {
+export default function Notifications() {
   return (
     <div style={styles.container}>
       <div style={styles.content}>
         <div style={styles.header}>
-          <h1 style={styles.title}>QR Code</h1>
+          <h1 style={styles.title}>Notifications</h1>
         </div>
-        <div style={styles.qrSection}>
-          <div style={styles.qrPlaceholder}>
-          </div>
-          <p style={styles.description}>Scan to send / receive money</p>
+        <div style={styles.emptyState}>
+          <div style={styles.emptyIcon}>🔔</div>
+          <p style={styles.emptyText}>No notifications yet</p>
         </div>
       </div>
       <BottomNav />
@@ -40,37 +39,21 @@ const styles = {
     fontFamily: 'var(--font-text)',
     margin: 0,
   },
-  qrSection: {
+  emptyState: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '40px 20px',
+    padding: '60px 20px',
     textAlign: 'center',
   },
-  qrPlaceholder: {
-    width: '240px',
-    height: '240px',
-    backgroundColor: 'white',
-    border: '2px solid var(--color-border)',
-    borderRadius: '12px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '8px',
-    fontSize: '14px',
-    fontFamily: 'monospace',
-    marginBottom: '20px',
+  emptyIcon: {
+    fontSize: '48px',
+    marginBottom: '16px',
   },
-  qrCode: {
-    fontSize: '12px',
-    letterSpacing: '2px',
-  },
-  description: {
+  emptyText: {
     fontSize: '14px',
     fontFamily: 'var(--font-text)',
     color: 'var(--color-text-secondary)',
-    margin: 0,
   },
 }

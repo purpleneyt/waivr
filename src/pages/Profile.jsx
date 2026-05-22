@@ -44,10 +44,11 @@ const styles = {
   },
   content: {
     padding: '20px',
-    maxWidth: '1200px',
+    maxWidth: '390px',
+    margin: '0 auto',
   },
   header: {
-    marginBottom: '32px',
+    marginBottom: '20px',
   },
   title: {
     fontSize: '24px',

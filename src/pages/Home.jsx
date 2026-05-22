@@ -12,10 +12,6 @@ export default function Home() {
     { id: 1, name: 'John de Jesus', timestamp: '1 min ago', amount: 500, fee: '₱0', badge: 'FREE' },
     { id: 2, name: 'Maria Santos', timestamp: '3 min ago', amount: 1000, fee: '₱0', badge: 'FREE' },
     { id: 3, name: 'Carlo Reyes', timestamp: '1 hr ago', amount: 50, fee: '₱0', badge: 'FREE' },
-    { id: 4, name: 'Juana Dela Rosa', timestamp: '5 hr ago', amount: 12000, fee: '₱0', badge: 'FREE' },
-    { id: 5, name: 'Fernando Tapsi', timestamp: '1 min ago', amount: 50000, fee: '₱0', badge: 'FREE' },
-    { id: 6, name: 'Fernando Tapsi', timestamp: '1 min ago', amount: 50000, fee: '₱0', badge: 'FREE' },
-    { id: 7, name: 'Fernando Tapsi', timestamp: '1 min ago', amount: 50000, fee: '₱0', badge: 'FREE' },
   ]
 
   return (

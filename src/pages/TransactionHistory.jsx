@@ -2,9 +2,13 @@ import BottomNav from '../components/BottomNav'
 
 export default function TransactionHistory() {
   const transactions = [
-    { id: 1, recipient: 'Maria Santos', amount: 1000, fee: 'FREE', date: 'Today', feeType: 'waivr' },
-    { id: 2, recipient: 'Juan Dela Cruz', amount: 2500, fee: '₱15', date: 'Yesterday', feeType: 'paid' },
-    { id: 3, recipient: 'Ana Garcia', amount: 500, fee: 'FREE', date: '2 days ago', feeType: 'waivr' },
+    { id: 1, recipient: 'John de Jesus', amount: 500, fee: 'FREE', date: '1 min ago', feeType: 'waivr' },
+    { id: 2, recipient: 'Maria Santos', amount: 1000, fee: 'FREE', date: '3 min ago', feeType: 'waivr' },
+    { id: 3, recipient: 'Carlo Reyes', amount: 50, fee: 'FREE', date: '1 hr ago', feeType: 'waivr' },
+    { id: 4, recipient: 'Juana Dela Rosa', amount: 12000, fee: 'FREE', date: '5 hr ago', feeType: 'waivr' },
+    { id: 5, recipient: 'Fernando Tapsi', amount: 50000, fee: 'FREE', date: 'Yesterday', feeType: 'waivr' },
+    { id: 6, recipient: 'Juan Dela Cruz', amount: 2500, fee: '₱15', date: '2 days ago', feeType: 'paid' },
+    { id: 7, recipient: 'Ana Garcia', amount: 500, fee: 'FREE', date: '3 days ago', feeType: 'waivr' },
   ]
 
   return (
@@ -64,8 +68,8 @@ const styles = {
     fontSize: '24px',
     fontWeight: '700',
     fontFamily: 'var(--font-text)',
-    marginTop: '20px',
-    marginBottom: '24px',
+    margin: 0,
+    marginBottom: '20px',
   },
   transactionsList: {
     display: 'flex',

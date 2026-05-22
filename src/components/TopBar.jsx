@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router-dom'
 import { Bell } from 'lucide-react'
 
 export default function TopBar() {
+  const navigate = useNavigate()
+
   return (
     <div style={styles.container}>
       <div style={styles.left}>
@@ -10,7 +13,10 @@ export default function TopBar() {
           <div style={styles.handle}>@juanDC</div>
         </div>
       </div>
-      <button style={styles.notificationBtn}>
+      <button 
+        style={styles.notificationBtn}
+        onClick={() => navigate('/notifications')}
+      >
         <Bell size={20} color="white" strokeWidth={2} />
       </button>
     </div>
