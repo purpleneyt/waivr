@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { HashRouter, Routes, Route, useLocation } from 'react-router-dom'
 import './styles/global.css'
 import PhoneFrame from './components/PhoneFrame'
 import BottomNav from './components/BottomNav'
@@ -50,11 +50,11 @@ function AppContent() {
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <PhoneFrame>
         <AppContent />
       </PhoneFrame>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
